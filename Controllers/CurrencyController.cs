@@ -50,5 +50,11 @@ namespace EF_project.Controllers
             var result = await _appDbContext.Currency.Where(x=>ids.Contains(x.Id)).ToListAsync();
             return Ok(result);
         }
+        [HttpPost("all")]
+        public async Task<IActionResult> GetAllCurrencyCustomAsync([FromBody] List<int> ids)
+        {
+            var result = await _appDbContext.Currency.Where(x => ids.Contains(x.Id)).Select(x => new { x.Id, x.Title }).ToListAsync();
+            return Ok(result);
+        }     
     }
 }
